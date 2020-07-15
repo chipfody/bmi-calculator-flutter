@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'sexButton.dart';
+import 'iconContenr.dart';
 import 'reusableCard.dart';
+import 'constants.dart';
 
-const bottomContainerHeight = 80.0;
-const activeBoxColor = Color(0xFF1D1E33);
-const inactiveCardColor = Color(0xFF111328);
+
+enum Gender {MALE, FEMALE}
 
 class InputPage extends StatefulWidget {
   @override
@@ -13,26 +14,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = inactiveCardColor;
-  Color femaleCardColor = inactiveCardColor;
 
-  void updateColor(int gender) {
-    if (gender == 1) {
-      if (maleCardColor == inactiveCardColor) {
-        maleCardColor = activeBoxColor;
-      } else {
-        maleCardColor = inactiveCardColor;
-      }
-    } else {
-      if (gender == 2) {
-        if (femaleCardColor == inactiveCardColor) {
-          femaleCardColor = activeBoxColor;
-        } else {
-          femaleCardColor = inactiveCardColor;
-        }
-      }
-    }
-  }
+  Gender selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -41,37 +24,34 @@ class _InputPageState extends State<InputPage> {
           title: Text('BMI CALCULATOR'),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
                 child: Row(
               children: <Widget>[
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
-                        updateColor(1);
+                        selectedGender = Gender.MALE;
                       });
                     },
-                    child: ReusableCard(
-                      colour: maleCardColor,
-                      cardChild: SexButton(
-                          sex: FontAwesomeIcons.mars, sexText: 'MALE'),
-                    ),
+                    colour: selectedGender == Gender.MALE ? kActiveBoxColor : kInactiveCardColor,
+                    cardChild: SexButton(
+                        gender: FontAwesomeIcons.mars, genderText: 'MALE'),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
-                        updateColor(2);
+                        selectedGender = Gender.FEMALE;
                       });
                     },
-                    child: ReusableCard(
-                      colour: femaleCardColor,
-                      cardChild: SexButton(
-                        sex: FontAwesomeIcons.venus,
-                        sexText: 'FEMALE',
-                      ),
+                    colour: selectedGender == Gender.FEMALE ? kActiveBoxColor : kInactiveCardColor,
+                    cardChild: SexButton(
+                      gender: FontAwesomeIcons.venus,
+                      genderText: 'FEMALE',
                     ),
                   ),
                 )
@@ -79,7 +59,13 @@ class _InputPageState extends State<InputPage> {
             )),
             Expanded(
               child: ReusableCard(
-                colour: activeBoxColor,
+                cardChild: Column(
+                  children: <Widget>[
+                    Text('HEIGHT', style: kLabelTextStyle),
+
+                  ],
+                ),
+                colour: kActiveBoxColor,
               ),
             ),
             Expanded(
@@ -87,21 +73,21 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    colour: activeBoxColor,
+                    colour: kActiveBoxColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: activeBoxColor,
+                    colour: kActiveBoxColor,
                   ),
                 )
               ],
             )),
             Container(
-              color: Color(0xFFEB1555),
+              color: kBottomContainerColor,
               margin: EdgeInsets.only(top: 10.0),
               width: double.infinity,
-              height: bottomContainerHeight,
+              height: kBottomContainerHeight,
             )
           ],
         ));

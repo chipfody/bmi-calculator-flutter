@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
-const labelTextStyle = TextStyle(
-  fontSize: 18.0,
-  color: Color(0xFF8D8E98),
-);
 
 class SexButton extends StatelessWidget {
-  final IconData sex;
-  final String sexText;
+  final IconData gender;
+  final String genderText;
 
-  SexButton({this.sex, this.sexText});
+  SexButton({this.gender, this.genderText});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +14,7 @@ class SexButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Icon(
-          sex,
+          gender,
           color: Colors.white,
           size: 80.0,
         ),
@@ -25,8 +22,8 @@ class SexButton extends StatelessWidget {
           height: 15.0,
         ),
         Text(
-          sexText,
-          style: labelTextStyle,
+          genderText,
+          style: kLabelTextStyle,
         )
       ],
     );
