@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 
-class SexButton extends StatelessWidget {
+class GenderButton extends StatelessWidget {
   final IconData gender;
   final String genderText;
 
-  SexButton({this.gender, this.genderText});
+  GenderButton({this.gender, this.genderText});
 
   @override
   Widget build(BuildContext context) {
